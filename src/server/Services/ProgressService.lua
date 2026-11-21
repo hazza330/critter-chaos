@@ -75,6 +75,15 @@ function ProgressService.SpendCoins(player: Player, amount: number): boolean
 	return true
 end
 
+function ProgressService.AddGems(player: Player, amount: number): boolean
+	local data = DataService.Get(player)
+	if not data or not isValidAmount(amount) then
+		return false
+	end
+	data.gems += amount
+	return true
+end
+
 function ProgressService.AddXP(player: Player, amount: number)
 	local data = DataService.Get(player)
 	if not data or not isValidAmount(amount) then

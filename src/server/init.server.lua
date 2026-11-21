@@ -16,11 +16,13 @@ local ProgressService = require(Services.ProgressService)
 local DiscoveryService = require(Services.DiscoveryService)
 local InventoryService = require(Services.InventoryService)
 local IncomeService = require(Services.IncomeService)
+local TreasureService = require(Services.TreasureService)
 
 ProgressService.Start() -- registers OnLoaded before players load
 DiscoveryService.Start()
 InventoryService.Start()
 IncomeService.Start()
+TreasureService.Start()
 DataService.Start()
 
 print("[Critter Chaos] Server started")

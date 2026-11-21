@@ -27,7 +27,10 @@ src/server/            ServerScriptService.Server
   Services/DataService       saving, session locking, autosave
   Services/ProgressService   coins, XP, levels, leaderstats
   Services/DiscoveryService  discovery spots and creature rolls
+  Services/TreasureService   hidden daily treasure chests
+  World/Builder              shared map-building helpers and props
   World/CritterCove          builds the starting island
+  World/CoveDetails          detail pass: plaza, beach, woods, cliffs, chests
 src/client/            StarterPlayerScripts.Client
   init.client.lua      entry point, UI scaling
   ClientData           read-only copy of your data
@@ -85,3 +88,10 @@ Run these in Studio and tick them off:
 - [ ] Wooden stairs at the east end of the cliffs reach Griffin's Lookout.
 - [ ] Path south reaches the dock and boat.
 - [ ] Lanterns light up at night (a full day takes 15 minutes).
+- [ ] Plaza: Griffin statue on the fountain, bunting, benches, market stalls.
+- [ ] Beach: huts, umbrellas, lifeguard tower (climbable ladder), campfire, sandcastle.
+- [ ] Boats and buoys bob; the windmill on the meadow hill turns.
+- [ ] Seagulls circle overhead; butterflies in the meadow and plaza.
+- [ ] Whispering Woods (west): pines, ferns, glowing mushrooms, ruined arch.
+- [ ] Fireflies appear over the pond and woods at night.
+- [ ] Treasure chests (arch, west cliff top, south-west islet) give coins and gems once every 20 hours.

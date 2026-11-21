@@ -1,0 +1,5 @@
+# Tools used by this project. Run `aftman install` after cloning.
+[tools]
+rojo = "rojo-rbx/rojo@7.4.4"
+selene = "kampfkarren/selene@0.32.0"
+StyLua = "JohnnyMorganz/StyLua@2.6.0"

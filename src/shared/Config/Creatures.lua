@@ -13,6 +13,7 @@
 	  description collection entry text
 	  personality short behaviour note, drives idle animation choice in Stage 2
 	  ability     short ability description (balanced numbers come in Stage 3)
+	  move        how it follows you: "walk", "hop", "float" or "fly"
 
 	Stage 1 ships Critter Cove only. Other islands are added in Stage 5.
 ]]
@@ -22,6 +23,7 @@ local Creatures = {}
 Creatures.List = {
 	{
 		id = 1,
+		move = "hop",
 		name = "Sproutling",
 		rarity = "Common",
 		element = "Nature",
@@ -33,6 +35,7 @@ Creatures.List = {
 	},
 	{
 		id = 2,
+		move = "float",
 		name = "Bubbles",
 		rarity = "Common",
 		element = "Water",
@@ -44,6 +47,7 @@ Creatures.List = {
 	},
 	{
 		id = 3,
+		move = "walk",
 		name = "Pebblit",
 		rarity = "Common",
 		element = "Earth",
@@ -55,6 +59,7 @@ Creatures.List = {
 	},
 	{
 		id = 4,
+		move = "fly",
 		name = "Flutterbug",
 		rarity = "Uncommon",
 		element = "Flying",
@@ -66,6 +71,7 @@ Creatures.List = {
 	},
 	{
 		id = 5,
+		move = "walk",
 		name = "Sunpup",
 		rarity = "Uncommon",
 		element = "Nature",
@@ -77,6 +83,7 @@ Creatures.List = {
 	},
 	{
 		id = 6,
+		move = "walk",
 		name = "Shellby",
 		rarity = "Uncommon",
 		element = "Water",
@@ -88,6 +95,7 @@ Creatures.List = {
 	},
 	{
 		id = 7,
+		move = "float",
 		name = "Glowfin",
 		rarity = "Rare",
 		element = "Water",
@@ -99,6 +107,7 @@ Creatures.List = {
 	},
 	{
 		id = 8,
+		move = "walk",
 		name = "Mossback",
 		rarity = "Rare",
 		element = "Nature",
@@ -110,6 +119,7 @@ Creatures.List = {
 	},
 	{
 		id = 9,
+		move = "walk",
 		name = "Crystal Fox",
 		rarity = "Epic",
 		element = "Magic",
@@ -121,6 +131,7 @@ Creatures.List = {
 	},
 	{
 		id = 10,
+		move = "fly",
 		name = "Golden Griffin",
 		rarity = "Legendary",
 		element = "Flying",

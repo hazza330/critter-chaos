@@ -170,7 +170,9 @@ local function onTriggered(spot: BasePart, player: Player)
 	lastAnyDiscovery[player] = clock
 	spotTimes[spot] = clock
 
-	local rarity = DiscoveryService.RollRarity(islandId, 1)
+	-- Hidden spots carry a Luck attribute that boosts Rare and better.
+	local luck = math.clamp(tonumber(spot:GetAttribute("Luck")) or 1, 1, 5)
+	local rarity = DiscoveryService.RollRarity(islandId, luck)
 	local creature = DiscoveryService.PickCreature(islandId, rarity)
 	if not creature then
 		warn("[DiscoveryService] No creature available on " .. islandId)

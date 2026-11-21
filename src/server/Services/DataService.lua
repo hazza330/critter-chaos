@@ -57,6 +57,7 @@ local function newTemplate()
 		level = 1,
 		nextUid = 1,
 		creatures = {}, -- [uid string] = { id, level, t, fav }
+		equipped = {}, -- array of uid strings
 		discovered = {}, -- [creatureId string] = first discovery os.time()
 		stats = {
 			discoveries = 0,

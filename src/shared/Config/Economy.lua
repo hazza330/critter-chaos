@@ -12,8 +12,12 @@ Economy.DiscoveryMaxDistance = 14 -- studs; server rejects triggers from further
 Economy.FirstDiscoveryBonusXP = 25 -- extra XP the first time a species is found
 Economy.CollectionCapacity = 100 -- starting max creatures a player can hold
 
--- Creature income (used from Stage 3)
-Economy.IncomeInterval = 10
+-- Equipping
+Economy.BaseEquipSlots = 3 -- upgrades raise this in Stage 3
+
+-- Creature income
+Economy.IncomeInterval = 10 -- seconds between payouts
+Economy.IncomePerLevel = 0.1 -- each creature level adds 10% to its base income
 
 -- Levels: XP needed to go from `level` to `level + 1`.
 function Economy.XPToNextLevel(level: number): number

@@ -13,8 +13,8 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
 
-local EVENT_NAMES = { "DataSync", "Discovered", "Notify" }
-local FUNCTION_NAMES = { "GetData" }
+local EVENT_NAMES = { "DataSync", "Discovered", "Notify", "Income" }
+local FUNCTION_NAMES = { "GetData", "InventoryAction" }
 
 local Remotes = {}
 

@@ -14,9 +14,13 @@ require(script.World.CritterCove).Build()
 local DataService = require(Services.DataService)
 local ProgressService = require(Services.ProgressService)
 local DiscoveryService = require(Services.DiscoveryService)
+local InventoryService = require(Services.InventoryService)
+local IncomeService = require(Services.IncomeService)
 
 ProgressService.Start() -- registers OnLoaded before players load
 DiscoveryService.Start()
+InventoryService.Start()
+IncomeService.Start()
 DataService.Start()
 
 print("[Critter Chaos] Server started")

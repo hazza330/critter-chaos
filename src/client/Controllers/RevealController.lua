@@ -7,7 +7,7 @@
 	show the name, rarity and rewards. Rarer finds hold longer and play a
 	higher-pitched sound. Tap/click anywhere or wait to dismiss.
 
-	Stage 2 replaces the orb with the creature's actual 3D model in a ViewportFrame.
+	At the burst the orb becomes a soft halo and the creature's 3D model spins in front of it.
 ]]
 
 local TweenService = game:GetService("TweenService")
@@ -18,11 +18,13 @@ local Creatures = require(Shared.Config.Creatures)
 local Rarities = require(Shared.Config.Rarities)
 local Remotes = require(Shared.Remotes)
 local UI = require(script.Parent.Parent.UI)
+local Viewport = require(script.Parent.Parent.Viewport)
 
 local RevealController = {}
 
 local overlay: TextButton
 local orb: Frame
+local modelHolder: Frame
 local nameLabel: TextLabel
 local rarityLabel: TextLabel
 local rewardLabel: TextLabel
@@ -59,6 +61,15 @@ local function build(root: ScreenGui)
 			Color = ColorSequence.new(Color3.new(1, 1, 1), Color3.fromRGB(200, 200, 200)),
 			Rotation = 45,
 		}),
+	})
+
+	modelHolder = UI.new("Frame", {
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.fromScale(0.5, 0.42),
+		Size = UDim2.fromOffset(260, 260),
+		BackgroundTransparency = 1,
+		ZIndex = 52,
+		Parent = overlay,
 	})
 
 	newBadge = UI.new("TextLabel", {
@@ -161,7 +172,11 @@ local function play(payload)
 	-- Burst
 	sound.PlaybackSpeed = 0.8 + rank * 0.12
 	SoundService:PlayLocalSound(sound)
-	TweenService:Create(orb, TweenInfo.new(0.35, Enum.EasingStyle.Back), { Size = UDim2.fromOffset(220, 220) }):Play()
+	TweenService:Create(orb, TweenInfo.new(0.35, Enum.EasingStyle.Back), {
+		Size = UDim2.fromOffset(240, 240),
+		BackgroundTransparency = 0.55,
+	}):Play()
+	Viewport.Show(modelHolder, creature.id, { spin = true, zIndex = 53 })
 
 	nameLabel.Text = creature.name
 	rarityLabel.Text = creature.rarity:upper() .. "  ·  " .. creature.element
@@ -195,6 +210,9 @@ local function play(payload)
 	end
 	newBadge.Visible = false
 	task.wait(0.25)
+	for _, child in ipairs(modelHolder:GetChildren()) do
+		child:Destroy()
+	end
 	overlay.Visible = false
 end
 

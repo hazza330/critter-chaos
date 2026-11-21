@@ -38,7 +38,8 @@ src/client/            StarterPlayerScripts.Client
 ## Stage status
 
 - [x] **Stage 1: Foundation.** Critter Cove island, spawn plaza, meadow, six discovery bushes, HUD, saving, discovery with reveal, collection book.
-- [ ] Stage 2: Creature models, idle animations, inventory, equipping, following.
+- [x] **Stage 2: Creature system.** 3D models for all 10 Cove creatures, rarity glow and sparkles, inventory (search, sort, island filter, favourites, equip/unequip, Equip Best, comparison), equip limit of 3, smooth following with walk/hop/float/fly styles, model thumbnails, 3D discovery reveal. Basic creature income brought forward from Stage 3.
+- [x] **Map pass.** Waterfall with a hidden cave, cliff stairs to a lookout, palm-lined beach, dock and boat, islets, plaza fountain and lanterns, mushrooms, pond stepping stones, clouds, tropical water, day/night cycle.
 - [ ] Stage 3: Creature income, shop, upgrades.
 - [ ] Stage 4: Quests, achievements, habitats.
 - [ ] Stage 5: Other five islands.
@@ -61,3 +62,26 @@ Run these in Studio and tick them off:
 - [ ] (Published, API access on) Leave and rejoin: coins, level and collection are kept.
 - [ ] Test > Clients and Servers, 2 players: each has their own data.
 - [ ] Device emulator (phone): HUD fits, buttons can be tapped.
+
+## Stage 2 test checklist
+
+- [ ] Inventory button opens the inventory; cards show 3D thumbnails.
+- [ ] Select a creature, press Equip: it appears next to you and follows smoothly.
+- [ ] Equipping a 4th creature shows "You can only equip 3 creatures".
+- [ ] Equip Best picks the highest-income creatures; Unequip All clears them.
+- [ ] Hoppers bounce, Bubbles/Glowfin float, Flutterbug/Griffin fly with flapping wings.
+- [ ] Pets follow up hills and over the cliff stairs without sinking into the ground.
+- [ ] Every 10s a "+N" floats up from your coins while creatures are equipped.
+- [ ] Search box, Sort, Island and Favourites buttons all change the grid.
+- [ ] Collection book shows coloured models for found species and black silhouettes for the rest.
+- [ ] Two-player test: each player sees the other's pets.
+- [ ] Rejoin (published place): equipped creatures and favourites are kept.
+
+## Map test checklist
+
+- [ ] Spawn faces the fountain and CRITTER CHAOS sign.
+- [ ] Path north under the sign leads to the waterfall lagoon.
+- [ ] Walk through the waterfall into the cave; the crystal spot can be searched.
+- [ ] Wooden stairs at the east end of the cliffs reach Griffin's Lookout.
+- [ ] Path south reaches the dock and boat.
+- [ ] Lanterns light up at night (a full day takes 15 minutes).

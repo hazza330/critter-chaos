@@ -4,13 +4,14 @@
 	many you own, undiscovered ones as "???" silhouettes. Selecting a card shows
 	its details. Filter by rarity tabs.
 
-	Stage 2 extends this into the full inventory (equip, favourite, sort, search).
+	The Inventory panel handles owned creatures; this is the species book.
 ]]
 
 local Shared = game:GetService("ReplicatedStorage").Shared
 local Creatures = require(Shared.Config.Creatures)
 local Rarities = require(Shared.Config.Rarities)
 local UI = require(script.Parent.Parent.UI)
+local Viewport = require(script.Parent.Parent.Viewport)
 local ClientData = require(script.Parent.Parent.ClientData)
 
 local CollectionController = {}
@@ -88,14 +89,13 @@ local function refresh()
 			}, { UI.corner(12), UI.new("UIStroke", { Color = rarity.color, Thickness = 3 }) })
 			UI.animateButton(card)
 
-			-- Stage 2 swaps this coloured circle for a live model thumbnail.
-			UI.new("Frame", {
-				AnchorPoint = Vector2.new(0.5, 0),
-				Position = UDim2.new(0.5, 0, 0, 10),
-				Size = UDim2.fromOffset(56, 56),
-				BackgroundColor3 = if discovered then creature.color else Color3.fromRGB(15, 15, 22),
+			local view = UI.new("Frame", {
+				Position = UDim2.fromOffset(6, 4),
+				Size = UDim2.new(1, -12, 0, 72),
+				BackgroundTransparency = 1,
 				Parent = card,
-			}, { UI.corner(28) })
+			})
+			Viewport.Show(view, creature.id, { silhouette = not discovered })
 			UI.new("TextLabel", {
 				Position = UDim2.new(0, 4, 1, -44),
 				Size = UDim2.new(1, -8, 0, 22),
@@ -268,8 +268,44 @@ local function build(root: ScreenGui)
 	})
 end
 
+local closeOthers: (() -> ())? = nil
+function CollectionController.SetCloseOthers(fn: () -> ())
+	closeOthers = fn
+end
+
+-- Refreshing rebuilds 3D thumbnails, so only redraw when the set of
+-- discovered species or owned counts actually changes.
+local lastSignature = ""
+local function signature(data): string
+	local parts = {}
+	for _, creature in ipairs(Creatures.List) do
+		local key = tostring(creature.id)
+		table.insert(parts, (if data.discovered[key] then "1" else "0"))
+	end
+	local owned = 0
+	for _ in pairs(data.creatures) do
+		owned += 1
+	end
+	return table.concat(parts) .. ":" .. owned .. ":" .. tostring(filter)
+end
+
+local function refreshIfChanged()
+	local data = ClientData.Get()
+	if not data or not panel.Visible then
+		return
+	end
+	local sig = signature(data)
+	if sig ~= lastSignature then
+		lastSignature = sig
+		refresh()
+	end
+end
+
 function CollectionController.Toggle(force: boolean?)
 	local show = if force ~= nil then force else not panel.Visible
+	if show and closeOthers then
+		closeOthers()
+	end
 	panel.Visible = show
 	if show then
 		detail.Visible = false
@@ -279,7 +315,7 @@ end
 
 function CollectionController.Start(root: ScreenGui, hud)
 	build(root)
-	ClientData.Changed:Connect(refresh)
+	ClientData.Changed:Connect(refreshIfChanged)
 	hud.AddMenuButton("Collection", Color3.fromRGB(90, 170, 255), 1, function()
 		CollectionController.Toggle()
 	end)

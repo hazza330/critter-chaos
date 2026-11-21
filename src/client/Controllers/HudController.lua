@@ -10,6 +10,7 @@ local TweenService = game:GetService("TweenService")
 
 local Shared = game:GetService("ReplicatedStorage").Shared
 local Economy = require(Shared.Config.Economy)
+local Remotes = require(Shared.Remotes)
 local UI = require(script.Parent.Parent.UI)
 local ClientData = require(script.Parent.Parent.ClientData)
 
@@ -183,8 +184,36 @@ local function refresh(data)
 	lastCoins = data.coins
 end
 
+-- "+N" that floats up from the coin counter when creatures pay out.
+local function floatIncome(amount: number)
+	local pill = coinLabel.Parent :: Frame
+	local label = UI.new("TextLabel", {
+		AnchorPoint = Vector2.new(1, 0),
+		Position = UDim2.new(0, -8, 0, 8),
+		Size = UDim2.fromOffset(120, 28),
+		BackgroundTransparency = 1,
+		Text = "+" .. UI.formatNumber(amount),
+		Font = UI.Font,
+		TextSize = 24,
+		TextColor3 = UI.Colors.Coin,
+		TextXAlignment = Enum.TextXAlignment.Right,
+		Parent = pill,
+	}, { UI.new("UIStroke", { Thickness = 2, Color = Color3.fromRGB(60, 40, 10) }) })
+	local info = TweenInfo.new(1.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+	TweenService:Create(label, info, { Position = UDim2.new(0, -8, 0, 40), TextTransparency = 1 }):Play()
+	TweenService:Create(label:FindFirstChildOfClass("UIStroke"), info, { Transparency = 1 }):Play()
+	task.delay(1.25, function()
+		label:Destroy()
+	end)
+end
+
 function HudController.Start(root: ScreenGui)
 	build(root)
+	Remotes.Event("Income").OnClientEvent:Connect(function(amount)
+		if type(amount) == "number" then
+			floatIncome(amount)
+		end
+	end)
 	ClientData.Changed:Connect(refresh)
 	local data = ClientData.Get()
 	if data then
